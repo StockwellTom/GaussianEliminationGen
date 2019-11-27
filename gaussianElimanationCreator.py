@@ -6,9 +6,19 @@ coefficients = []
 totals = []
 equatStrings = []
 
+def matrixVert(strMatrix):
+    returnString = ""
+    for i in range(dimensions):
+        for j in range(dimensions + 1):
+            returnString = returnString + str(round(strMatrix[i][j], 3)) + "  "
+            if j == dimensions - 1:
+                returnString = returnString + "|  "
+        returnString = returnString + "\n"
+    return returnString
+
 #randomly choosing the values of the dimensions, e.g x,y,z in three dimensions
 for i in range(dimensions):
-    variables.append(random.randint(1, 5)) #these are the bounds in which your variables to solve can occupy
+    variables.append(random.randint(-5, 5)) #these are the bounds in which your variables to solve can occupy
 
 #randomly choosing the coefficients to generate the equations
 for i in range(dimensions):
@@ -58,12 +68,13 @@ for i in range(dimensions):
 
 print(matrix)
 
-
+#this makes the matrix into echelon form
 for pivots in range(dimensions):
     row = dimensions - 1
     while row > pivots:
         pivotMult = matrix[row][pivots] / matrix[pivots][pivots]
         for values in range(dimensions + 1):
             matrix[row][values] = matrix[row][values] - pivotMult*(matrix[pivots][values])
-        print(matrix)
+        print(matrixVert(matrix))
         row = row - 1
+
